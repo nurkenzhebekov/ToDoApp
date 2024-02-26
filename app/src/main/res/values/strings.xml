@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ToDoApp</string>
+    <string name="bot_nav_profile">Profile</string>
+    <string name="bot_nav_tasks">Tasks</string>
+    <string name="bot_nav_home">Home</string>
+    <string name="def_toolbar_menu_close_app">Close App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edt_enter_your_name">Enter your name</string>
+    <string name="bt_save">Save</string>
+    <string name="tv_home_tasks">Home tasks</string>
+    <string name="tv_fragment_profile_name">Profile Name</string>
+    <string name="bot_nav_notes">Notes</string>
+    <string name="bt_add_new_note">Add New Note</string>
+    <string name="bt_note_create">Create</string>
+    <string name="edt_hint_task_s_title">Task\'s title</string>
+    <string name="bt_open">Open</string>
+    <string name="bt_add">Add</string>
+    <string name="bt_show">Show</string>
+    <string name="hint_contact_name">Contact name</string>
+    <string name="hint_mobile_number">Mobile number</string>
+    <string name="hint_work_number">Work number</string>
+    <string name="bt_save_contact">Save</string>
+</resources>

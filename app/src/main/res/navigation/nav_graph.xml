@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_home">
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.todoapp.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_contactFragment"
+            app:destination="@id/contactFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_addContactFragment"
+            app:destination="@id/addContactFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_showContactFragment"
+            app:destination="@id/showContactFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_tasks"
+        android:name="com.example.todoapp.ui.tasks.TasksFragment"
+        android:label="Tasks"
+        tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.todoapp.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/editProfileNameFragment"
+        android:name="com.example.todoapp.ui.profile.EditProfileNameFragment"
+        android:label="Edit profile name"
+        tools:layout="@layout/fragment_edit_profile_name" />
+    <fragment
+        android:id="@+id/navigation_notes"
+        android:name="com.example.todoapp.ui.notes.NotesFragment"
+        android:label="Notes"
+        tools:layout="@layout/fragment_notes" >
+        <action
+            android:id="@+id/action_navigation_notes_to_fragmentNoteCreate"
+            app:destination="@id/fragmentNoteCreate" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentNoteCreate"
+        android:name="com.example.todoapp.ui.notes.create.FragmentNoteCreate"
+        android:label="Note create"
+        tools:layout="@layout/fragment_note_create" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.example.todoapp.ui.home.contact.ContactFragment"
+        android:label="Contact"
+        tools:layout="@layout/fragment_contact">
+
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="mobileNumber"
+            app:argType="string" />
+        <argument
+            android:name="workNumber"
+            app:argType="string"
+            app:nullable="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/addContactFragment"
+        android:name="com.example.todoapp.ui.home.contact.AddContactFragment"
+        android:label="Add contact"
+        tools:layout="@layout/fragment_add_contact">
+
+        <argument
+            android:name="contactName"
+            app:argType="string"/>
+        <argument
+            android:name="mobileNumber"
+            app:argType="string"/>
+        <argument
+            android:name="workNumber"
+            app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/showContactFragment"
+        android:name="com.example.todoapp.ui.home.contact.ShowContactFragment"
+        android:label="Show contact"
+        tools:layout="@layout/fragment_show_contact">
+
+        <argument
+            android:name="contactName"
+            app:argType="string"/>
+        <argument
+            android:name="mobileNumber"
+            app:argType="string"/>
+        <argument
+            android:name="workNumber"
+            app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/homeTasksFragment"
+        android:name="com.example.todoapp.ui.tasks.content.HomeTasksFragment"
+        android:label="Home tasks"
+        tools:layout="@layout/fragment_home_tasks" />
+    <fragment
+        android:id="@+id/workTasksFragment"
+        android:name="com.example.todoapp.ui.tasks.content.WorkTasksFragment"
+        android:label="Work tasks"
+        tools:layout="@layout/fragment_work_tasks" />
+</navigation>
