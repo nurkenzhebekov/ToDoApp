@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentOnBoardingBinding
+import com.example.todoapp.ui.onboarding.adapter.ViewPagerAdapter
+import com.example.todoapp.ui.onboarding.fragments.screens.OnBoardingScreenFragment1
+import com.example.todoapp.ui.onboarding.fragments.screens.OnBoardingScreenFragment2
+import com.example.todoapp.ui.onboarding.fragments.screens.OnBoardingScreenFragment3
 
 class OnBoardingFragment : Fragment() {
 
@@ -18,23 +22,28 @@ class OnBoardingFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentOnBoardingBinding.inflate(layoutInflater)
-        val view = binding.root
-
-        val pageNumber = arguments?.getInt(ARG_PAGE_NUMBER, 0) ?: 0
-        binding.textViewPageNumber.text = "Page ${pageNumber + 1} Content"
-
-        return view
+        return binding.root
     }
 
-    companion object {
-        private const val ARG_PAGE_NUMBER = "page_number"
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        fun newInstance(pageNumber: Int): OnBoardingFragment {
-            val fragment = OnBoardingFragment()
-            val args = Bundle()
-            args.putInt(ARG_PAGE_NUMBER, pageNumber)
-            fragment.arguments = args
-            return fragment
-        }
+        val fragmentList = arrayListOf<Fragment>(
+            OnBoardingScreenFragment1(),
+            OnBoardingScreenFragment2(),
+            OnBoardingScreenFragment3(),
+        )
+
+        val adapter = ViewPagerAdapter(
+            fragmentList,
+            requireActivity().supportFragmentManager,
+            lifecycle
+        )
+
+        val dotsIndicator = binding.dotsIndicator
+        val viewPager = binding.vpOnboarding
+
+        viewPager.adapter = adapter
+        dotsIndicator.attachTo(viewPager)
     }
 }

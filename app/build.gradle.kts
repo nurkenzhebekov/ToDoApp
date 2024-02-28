@@ -62,4 +62,7 @@ dependencies {
 
     //ViewPager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    //Pager Dots Indicator
+    implementation("com.tbuonomo:dotsindicator:5.0")
 }
