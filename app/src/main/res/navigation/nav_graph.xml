@@ -27,20 +27,15 @@
         <action
             android:id="@+id/action_navigation_notes_to_fragmentNoteCreate"
             app:destination="@id/fragmentNoteCreate" />
-
-        <argument
-            android:name="notes"
-            app:argType="com.example.todoapp.ui.models.Notes"/>
+        <action
+            android:id="@+id/action_navigation_notes_to_notesDetailsFragment"
+            app:destination="@id/notesDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentNoteCreate"
         android:name="com.example.todoapp.ui.notes.create.FragmentNoteCreate"
         android:label="Note create"
         tools:layout="@layout/fragment_note_create" >
-
-        <argument
-            android:name="notes"
-            app:argType="com.example.todoapp.ui.models.Notes"/>
 
         <action
             android:id="@+id/action_fragmentNoteCreate_to_navigation_notes"
@@ -84,5 +79,9 @@
         android:name="com.example.todoapp.ui.notes.details.NotesDetailsFragment"
         android:label="Notes Details"
         tools:layout="@layout/fragment_notes_details">
+
+        <argument
+            android:name="note"
+            app:argType="com.example.todoapp.ui.models.Notes" />
     </fragment>
 </navigation>

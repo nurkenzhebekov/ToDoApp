@@ -20,4 +20,5 @@
     <string name="hint_work_number">Work number</string>
     <string name="bt_save_contact">Save</string>
     <string name="btn_add_new_note">Add new note</string>
+    <string name="bt_edit">Edit</string>
 </resources>

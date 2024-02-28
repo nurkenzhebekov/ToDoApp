@@ -27,6 +27,14 @@ class NotesDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setArgs()
+    }
+
+    private fun setArgs() {
+        val note = arguments?.getParcelable<Notes>("note")
+        binding.tvNoteTitle.text = note?.title
+        binding.tvNoteDescription.text = note?.description
     }
 
     override fun onDestroyView() {

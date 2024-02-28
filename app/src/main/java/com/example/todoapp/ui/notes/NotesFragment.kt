@@ -20,8 +20,7 @@ class NotesFragment : Fragment() {
     private var _binding: FragmentNotesBinding? = null
     private val binding
         get() = _binding!!
-    private val adapter = NotesAdapter()
-    private val arguments: NotesFragmentArgs by navArgs()
+    private val adapter = NotesAdapter(this::itemClicked)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,11 +35,14 @@ class NotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setup()
-        setListener()
+        setListeners()
+    }
 
-        val newNote = arguments.notes
-        newNote?.let {
-            adapter.addNote(it)
+    private fun itemClicked(id: Long) {
+        val note = adapter.currentList.find { it.id == id }
+        note?.let {
+            val action = NotesFragmentDirections.actionNavigationNotesToNotesDetailsFragment(note)
+            findNavController().navigate(action)
         }
     }
 
@@ -48,11 +50,35 @@ class NotesFragment : Fragment() {
         binding.rvNotes.adapter = adapter
     }
 
-    private fun setListener() {
+    private fun setListeners() {
         binding.btAddNewTask.setOnClickListener {
-            val action = NotesFragmentDirections
-                .actionNavigationNotesToFragmentNoteCreate()
-            findNavController().navigate(action)
+            findNavController().navigate(R.id.action_navigation_notes_to_fragmentNoteCreate)
+        }
+
+        setFragmentResultListener(FragmentNoteCreate.RESULT_KEY) {key, bundle ->
+            val note = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                bundle.getParcelable(FragmentNoteCreate.NOTE_KEY, Notes::class.java)
+            else
+                bundle.getParcelable(FragmentNoteCreate.NOTE_KEY)
+
+            val isEdit = bundle.getBoolean(FragmentNoteCreate.IS_EDIT_KEY, false)
+
+            var data = mutableListOf<Notes>()
+            data.addAll(adapter.currentList)
+
+            if (isEdit) {
+                data = data.map {
+                    if (it.id == note?.id) {
+                        note
+                    } else {
+                        it
+                    }
+                }.toMutableList()
+            } else {
+                data.add(note ?: return@setFragmentResultListener)
+            }
+
+            adapter.submitList(data)
         }
     }
 

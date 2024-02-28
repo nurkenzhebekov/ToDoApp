@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class Notes(
     val title: String,
     val description: String,
-    val id: Long = System.currentTimeMillis(),
+    val id: Long
 ) : Parcelable
