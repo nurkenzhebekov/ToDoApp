@@ -19,7 +19,7 @@ class NotesFragment : Fragment() {
     private var _binding: FragmentNotesBinding? = null
     private val binding
         get() = _binding!!
-    private val adapter = NotesAdapter(this::itemClicked)
+    val adapter = NotesAdapter(this::itemClicked)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,13 +38,16 @@ class NotesFragment : Fragment() {
     }
 
     private fun itemClicked(id: Long) {
-        val task = adapter.currentList.find { it.id == id }
+
+        val action = NotesFragmentDirections.actionNavigationNotesToNotesDetailsFragment(id)
+        findNavController().navigate(action)
+        /*val task = adapter.currentList.find { it.id == id }
         findNavController().navigate(
             R.id.action_navigation_notes_to_fragmentNoteCreate,
             args = bundleOf(
                 FragmentNoteCreate.TASK_KEY to task
             )
-        )
+        )*/
     }
 
     private fun setup() {

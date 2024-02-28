@@ -34,7 +34,7 @@ class FragmentNoteCreate : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getTask()
+        //getTask()
         setListeners()
     }
 
