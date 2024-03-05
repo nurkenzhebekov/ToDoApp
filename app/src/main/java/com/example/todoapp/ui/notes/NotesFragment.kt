@@ -39,19 +39,17 @@ class NotesFragment : Fragment() {
 
     private fun itemClicked(id: Long) {
 
-        val action = NotesFragmentDirections.actionNavigationNotesToNotesDetailsFragment(id)
-        findNavController().navigate(action)
-        /*val task = adapter.currentList.find { it.id == id }
+        val note = adapter.currentList.find { it.id == id }
         findNavController().navigate(
             R.id.action_navigation_notes_to_fragmentNoteCreate,
             args = bundleOf(
-                FragmentNoteCreate.TASK_KEY to task
+                FragmentNoteCreate.NOTE_KEY to note
             )
-        )*/
+        )
     }
 
     private fun setup() {
-        binding.rvTasks.adapter = adapter
+        binding.rvNotes.adapter = adapter
     }
 
     private fun setListeners() {
@@ -61,9 +59,9 @@ class NotesFragment : Fragment() {
 
         setFragmentResultListener(FragmentNoteCreate.RESULT_KEY) { key, bundle ->
             val task = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                bundle.getParcelable(FragmentNoteCreate.TASK_KEY, Notes::class.java)
+                bundle.getParcelable(FragmentNoteCreate.NOTE_KEY, Notes::class.java)
             else
-                bundle.getParcelable(FragmentNoteCreate.TASK_KEY)
+                bundle.getParcelable(FragmentNoteCreate.NOTE_KEY)
 
             val isEdit = bundle.getBoolean(FragmentNoteCreate.IS_EDIT_KEY, false)
 
@@ -72,12 +70,10 @@ class NotesFragment : Fragment() {
 
             if (isEdit) {
                 data = data.map {
-                    if (it.id == task?.id) {
-                        task
-                    } else {
-                        it
-                    }
+                    if (it.id == task?.id) task
+                         else it
                 }.toMutableList()
+
             } else {
                 data.add(task ?: return@setFragmentResultListener)
             }

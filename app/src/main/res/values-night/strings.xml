@@ -11,7 +11,7 @@
     <string name="bot_nav_notes">Notes</string>
     <string name="bt_add_new_note">Add New Note</string>
     <string name="bt_note_create">Create</string>
-    <string name="edt_hint_task_s_title">Task\'s title</string>
+    <string name="edt_hint_note_s_title">Note\'s title</string>
     <string name="bt_open">Open</string>
     <string name="bt_add">Add</string>
     <string name="bt_show">Show</string>

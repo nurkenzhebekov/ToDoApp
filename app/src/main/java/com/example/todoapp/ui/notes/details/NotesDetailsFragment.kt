@@ -35,11 +35,11 @@ class NotesDetailsFragment : Fragment() {
     private fun displayNoteDetails() {
         val args = arguments ?: return
         note = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-        args.getParcelable(FragmentNoteCreate.TASK_KEY, Notes::class.java) ?: return
+        args.getParcelable(FragmentNoteCreate.NOTE_KEY, Notes::class.java) ?: return
         else
-        args.getParcelable(FragmentNoteCreate.TASK_KEY) ?: return
+        args.getParcelable(FragmentNoteCreate.NOTE_KEY) ?: return
 
-        binding.tvNoteDetails.text = note?.title.toString()
+        binding.tvNoteDetails.text = note?.title
     }
 
     override fun onDestroyView() {

@@ -9,13 +9,13 @@
 
     <!-- TODO: Update blank fragment layout -->
     <EditText
-        android:id="@+id/edt_task_title"
+        android:id="@+id/edt_note_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/edt_hint_task_s_title"/>
+        android:hint="@string/edt_hint_note_s_title"/>
 
     <Button
-        android:id="@+id/bt_task_create"
+        android:id="@+id/bt_note_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

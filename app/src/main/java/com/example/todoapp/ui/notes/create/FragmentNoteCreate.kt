@@ -34,59 +34,56 @@ class FragmentNoteCreate : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //getTask()
+        getNote()
         setListeners()
     }
 
-    private fun getTask() {
+    private fun getNote() {
         val args = arguments ?: return
         note = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            args.getParcelable(TASK_KEY, Notes::class.java) ?: return
+            args.getParcelable(NOTE_KEY, Notes::class.java) ?: return
         else
-            args.getParcelable(TASK_KEY) ?: return
+            args.getParcelable(NOTE_KEY) ?: return
 
-        binding.edtTaskTitle.setText(note?.title.toString())
+        binding.edtNoteTitle.setText(note?.title.toString())
         isEdit = true
-        binding.btTaskCreate.text = "Save"
+            binding.btNoteCreate.text = "Save"
     }
 
     private fun setListeners() {
-        binding.btTaskCreate.setOnClickListener {
-            val task = if (note == null) {
-                createTask()
-            } else {
-                updateTask()
-            }
-            saveTask(task)
+        binding.btNoteCreate.setOnClickListener {
+            val note =
+                if (note == null) createNote()
+                else updateNote()
+            saveNote(note)
         }
     }
 
-    private fun updateTask(): Notes {
+    private fun updateNote(): Notes {
         return note!!.copy(
-            title = binding.edtTaskTitle.text.toString()
+            title = binding.edtNoteTitle.text.toString()
         )
     }
 
-    private fun saveTask(tasks: Notes) {
+    private fun saveNote(notes: Notes) {
         setFragmentResult(RESULT_KEY, bundleOf(
-            TASK_KEY to tasks,
+            NOTE_KEY to notes,
             IS_EDIT_KEY to isEdit
-        )
-        )
-        Toast.makeText(requireContext(), "Task Created", Toast.LENGTH_SHORT).show()
+        ))
+        Toast.makeText(requireContext(), "Note Created", Toast.LENGTH_SHORT).show()
         findNavController().navigateUp()
     }
 
-    private fun createTask() : Notes {
+    private fun createNote() : Notes {
         return Notes(
-            title = binding.edtTaskTitle.text.toString(),
+            title = binding.edtNoteTitle.text.toString(),
             id = System.currentTimeMillis()
         )
     }
 
     companion object {
-        const val RESULT_KEY = "FRAGMENT_TASK_CREATE_RESULT_KEY"
-        const val TASK_KEY = "TASK_KEY"
+        const val RESULT_KEY = "FRAGMENT_NOTE_CREATE_RESULT_KEY"
+        const val NOTE_KEY = "NOTE_KEY"
         const val IS_EDIT_KEY = "IS_EDIT_KEY"
     }
 }
