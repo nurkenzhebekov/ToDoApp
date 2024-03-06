@@ -14,6 +14,12 @@
         android:layout_height="wrap_content"
         android:hint="@string/edt_hint_note_s_title"/>
 
+    <EditText
+        android:id="@+id/edt_note_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Note's description"/>
+
     <Button
         android:id="@+id/bt_note_create"
         android:layout_width="match_parent"

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentNotesBinding
 import com.example.todoapp.ui.models.Notes
@@ -19,14 +20,15 @@ class NotesFragment : Fragment() {
     private var _binding: FragmentNotesBinding? = null
     private val binding
         get() = _binding!!
-    val adapter = NotesAdapter(this::itemClicked)
+    private val adapter = NotesAdapter()
+    private val arguments: NotesFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentNotesBinding.inflate(layoutInflater)
+        _binding = FragmentNotesBinding.inflate(inflater)
         return binding.root
     }
 
@@ -34,51 +36,23 @@ class NotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setup()
-        setListeners()
-    }
+        setListener()
 
-    private fun itemClicked(id: Long) {
-
-        val note = adapter.currentList.find { it.id == id }
-        findNavController().navigate(
-            R.id.action_navigation_notes_to_fragmentNoteCreate,
-            args = bundleOf(
-                FragmentNoteCreate.NOTE_KEY to note
-            )
-        )
+        val newNote = arguments.notes
+        newNote?.let {
+            adapter.addNote(it)
+        }
     }
 
     private fun setup() {
         binding.rvNotes.adapter = adapter
     }
 
-    private fun setListeners() {
+    private fun setListener() {
         binding.btAddNewTask.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_notes_to_fragmentNoteCreate)
-        }
-
-        setFragmentResultListener(FragmentNoteCreate.RESULT_KEY) { key, bundle ->
-            val task = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                bundle.getParcelable(FragmentNoteCreate.NOTE_KEY, Notes::class.java)
-            else
-                bundle.getParcelable(FragmentNoteCreate.NOTE_KEY)
-
-            val isEdit = bundle.getBoolean(FragmentNoteCreate.IS_EDIT_KEY, false)
-
-            var data = mutableListOf<Notes>()
-            data.addAll(adapter.currentList)
-
-            if (isEdit) {
-                data = data.map {
-                    if (it.id == task?.id) task
-                         else it
-                }.toMutableList()
-
-            } else {
-                data.add(task ?: return@setFragmentResultListener)
-            }
-
-            adapter.submitList(data)
+            val action = NotesFragmentDirections
+                .actionNavigationNotesToFragmentNoteCreate()
+            findNavController().navigate(action)
         }
     }
 

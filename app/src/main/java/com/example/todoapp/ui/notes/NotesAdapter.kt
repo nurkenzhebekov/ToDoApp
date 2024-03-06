@@ -9,7 +9,6 @@ import com.example.todoapp.databinding.ItemNotesBinding
 import com.example.todoapp.ui.models.Notes
 
 class NotesAdapter (
-    private val itemClicked: (Long) -> Unit,
     ) : ListAdapter<Notes, NotesAdapter.NotesViewHolder>(DIFF_UTIL_CALL_BACK) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
@@ -25,13 +24,17 @@ class NotesAdapter (
             holder.onBind(getItem(position))
         }
 
+        fun addNote(note: Notes) {
+            val newList = currentList.toMutableList()
+            newList.add(note)
+            submitList(newList)
+        }
+
         inner class NotesViewHolder(private val binding: ItemNotesBinding) : RecyclerView.ViewHolder(binding.root) {
 
             fun onBind(notes: Notes) {
                 binding.tvTitle.text = notes.title
-                binding.root.setOnClickListener {
-                    itemClicked(notes.id)
-                }
+                binding.tvDescription.text = notes.description
             }
 
         }

@@ -10,8 +10,10 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.todoapp.databinding.FragmentNoteCreateBinding
 import com.example.todoapp.ui.models.Notes
+import com.example.todoapp.ui.notes.NotesAdapter
 
 class FragmentNoteCreate : Fragment() {
 
@@ -19,71 +21,37 @@ class FragmentNoteCreate : Fragment() {
     private val binding
         get() = _binding!!
 
-    private var note: Notes? = null
-    private var isEdit = false
+    private val arguments: FragmentNoteCreateArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentNoteCreateBinding.inflate(layoutInflater)
+        _binding = FragmentNoteCreateBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getNote()
-        setListeners()
+        setArgs()
     }
 
-    private fun getNote() {
-        val args = arguments ?: return
-        note = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            args.getParcelable(NOTE_KEY, Notes::class.java) ?: return
-        else
-            args.getParcelable(NOTE_KEY) ?: return
+    private fun setArgs() {
 
-        binding.edtNoteTitle.setText(note?.title.toString())
-        isEdit = true
-            binding.btNoteCreate.text = "Save"
-    }
+        val note = arguments.notes
+        binding.edtNoteTitle.setText(note.title)
+        binding.edtNoteDescription.setText(note.description)
 
-    private fun setListeners() {
         binding.btNoteCreate.setOnClickListener {
-            val note =
-                if (note == null) createNote()
-                else updateNote()
-            saveNote(note)
+            val title = binding.edtNoteTitle.text.toString()
+            val description = binding.edtNoteDescription.text.toString()
+            val newNote = Notes(title, description)
+
+            val action = FragmentNoteCreateDirections
+                .actionFragmentNoteCreateToNavigationNotes(newNote)
+            findNavController().navigate(action)
         }
-    }
-
-    private fun updateNote(): Notes {
-        return note!!.copy(
-            title = binding.edtNoteTitle.text.toString()
-        )
-    }
-
-    private fun saveNote(notes: Notes) {
-        setFragmentResult(RESULT_KEY, bundleOf(
-            NOTE_KEY to notes,
-            IS_EDIT_KEY to isEdit
-        ))
-        Toast.makeText(requireContext(), "Note Created", Toast.LENGTH_SHORT).show()
-        findNavController().navigateUp()
-    }
-
-    private fun createNote() : Notes {
-        return Notes(
-            title = binding.edtNoteTitle.text.toString(),
-            id = System.currentTimeMillis()
-        )
-    }
-
-    companion object {
-        const val RESULT_KEY = "FRAGMENT_NOTE_CREATE_RESULT_KEY"
-        const val NOTE_KEY = "NOTE_KEY"
-        const val IS_EDIT_KEY = "IS_EDIT_KEY"
     }
 }

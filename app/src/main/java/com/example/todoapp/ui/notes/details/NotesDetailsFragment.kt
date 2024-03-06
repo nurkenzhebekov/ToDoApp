@@ -15,7 +15,6 @@ class NotesDetailsFragment : Fragment() {
     private var _binding: FragmentNotesDetailsBinding? = null
     private val binding
         get() = _binding!!
-    private var note: Notes? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,18 +27,6 @@ class NotesDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        displayNoteDetails()
-    }
-
-    private fun displayNoteDetails() {
-        val args = arguments ?: return
-        note = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-        args.getParcelable(FragmentNoteCreate.NOTE_KEY, Notes::class.java) ?: return
-        else
-        args.getParcelable(FragmentNoteCreate.NOTE_KEY) ?: return
-
-        binding.tvNoteDetails.text = note?.title
     }
 
     override fun onDestroyView() {

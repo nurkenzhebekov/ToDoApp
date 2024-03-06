@@ -16,4 +16,15 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Notes"/>
 
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Notes"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

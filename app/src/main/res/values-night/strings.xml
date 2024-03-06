@@ -19,4 +19,5 @@
     <string name="hint_mobile_number">Mobile number</string>
     <string name="hint_work_number">Work number</string>
     <string name="bt_save_contact">Save</string>
+    <string name="btn_add_new_note">Add new note</string>
 </resources>
