@@ -36,23 +36,22 @@ class FragmentNoteCreate : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //setArgs()
-
         getTask()
         setListeners()
     }
 
     private fun getTask() {
-        val args = arguments ?: return
-        note = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            args.getParcelable(NOTE_KEY, Notes::class.java) ?: return
-        else
-            args.getParcelable(NOTE_KEY) ?: return
-
-        binding.edtNoteTitle.setText(note?.title.toString())
-        binding.edtNoteDescription.setText(note?.description.toString())
-        isEdit = true
-        binding.btNoteCreate.text = "Save"
+        val args = arguments
+        if (args != null && args.containsKey(NOTE_KEY)) {
+            note = args.getParcelable(NOTE_KEY)
+            binding.edtNoteTitle.setText(note?.title)
+            binding.edtNoteDescription.setText(note?.description)
+            isEdit = true
+            binding.btNoteCreate.text = "Save"
+        } else {
+            isEdit = false
+            binding.btNoteCreate.text = "Create"
+        }
     }
 
     private fun setListeners() {
@@ -67,11 +66,14 @@ class FragmentNoteCreate : Fragment() {
     }
 
     private fun saveNote(notes: Notes) {
-        setFragmentResult(RESULT_KEY, bundleOf(
+        val isEdit = note?.id != null
+        val bundle = bundleOf(
             NOTE_KEY to notes,
             IS_EDIT_KEY to isEdit
-        ))
-        Toast.makeText(requireContext(), "Note Created", Toast.LENGTH_SHORT).show()
+        )
+        setFragmentResult(RESULT_KEY, bundle)
+        Toast.makeText(requireContext()
+            , "Note ${if (isEdit) "Updated" else "Created"}", Toast.LENGTH_SHORT).show()
         findNavController().navigateUp()
     }
 

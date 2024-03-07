@@ -83,5 +83,11 @@
         <argument
             android:name="note"
             app:argType="com.example.todoapp.ui.models.Notes" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_notesDetailsFragment_to_fragmentNoteCreate"
+            app:destination="@id/fragmentNoteCreate" />
     </fragment>
 </navigation>
