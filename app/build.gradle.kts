@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -52,7 +53,6 @@ dependencies {
 
     //Navigation Component
     val nav_version = "2.7.7"
-    // Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
@@ -65,4 +65,9 @@ dependencies {
 
     //Pager Dots Indicator
     implementation("com.tbuonomo:dotsindicator:5.0")
+
+    //Room
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
 }

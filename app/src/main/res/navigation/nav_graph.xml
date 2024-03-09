@@ -80,12 +80,11 @@
         android:label="Notes Details"
         tools:layout="@layout/fragment_notes_details">
 
-        <argument
-            android:name="note"
-            app:argType="com.example.todoapp.ui.models.Notes" />
-        <argument
-            android:name="isEdit"
-            app:argType="boolean" />
+        <arguments>
+            <argument
+                android:name="noteId"
+                app:argType="integer" />
+        </arguments>
         <action
             android:id="@+id/action_notesDetailsFragment_to_fragmentNoteCreate"
             app:destination="@id/fragmentNoteCreate" />

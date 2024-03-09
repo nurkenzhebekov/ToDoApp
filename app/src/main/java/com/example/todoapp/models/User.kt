@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.models
+package com.example.todoapp.models
 
 data class User(
     val imgUserAvatar: Int,
