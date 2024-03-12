@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
 import com.example.todoapp.data.NotesManager
@@ -17,6 +18,7 @@ class NotesFragment : Fragment() {
     private val binding
         get() = _binding!!
     private val adapter = NotesAdapter(itemClicked = this::itemClicked)
+    private var noteId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +33,8 @@ class NotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setup()
-        setupData()
         setListeners()
+        setupData()
     }
 
     private fun setupData() {
@@ -42,6 +44,10 @@ class NotesFragment : Fragment() {
     }
 
     private fun itemClicked(item: Notes) {
+        val bundle = Bundle().apply {
+            putInt("noteId", item.id)
+        }
+        findNavController().navigate(R.id.action_navigation_notes_to_notesDetailsFragment, bundle)
     }
 
     private fun setup() {

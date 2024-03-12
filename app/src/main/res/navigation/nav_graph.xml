@@ -79,12 +79,6 @@
         android:name="com.example.todoapp.ui.notes.details.NotesDetailsFragment"
         android:label="Notes Details"
         tools:layout="@layout/fragment_notes_details">
-
-        <arguments>
-            <argument
-                android:name="noteId"
-                app:argType="integer" />
-        </arguments>
         <action
             android:id="@+id/action_notesDetailsFragment_to_fragmentNoteCreate"
             app:destination="@id/fragmentNoteCreate" />
