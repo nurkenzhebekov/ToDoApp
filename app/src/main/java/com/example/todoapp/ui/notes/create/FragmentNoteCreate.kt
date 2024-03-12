@@ -63,6 +63,7 @@ class FragmentNoteCreate : Fragment() {
         if (note != null) {
             binding.edtNoteTitle.setText(note?.title)
             binding.edtNoteDescription.setText(note?.description)
+            binding.btNoteCreate.text = "Update"
         }
     }
 }
