@@ -18,7 +18,6 @@ class NotesFragment : Fragment() {
     private val binding
         get() = _binding!!
     private val adapter = NotesAdapter(itemClicked = this::itemClicked)
-    private var noteId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,10 +43,8 @@ class NotesFragment : Fragment() {
     }
 
     private fun itemClicked(item: Notes) {
-        val bundle = Bundle().apply {
-            putInt("noteId", item.id)
-        }
-        findNavController().navigate(R.id.action_navigation_notes_to_notesDetailsFragment, bundle)
+        findNavController().navigate(R.id.action_navigation_notes_to_fragmentNoteCreate,
+            bundleOf("noteKey" to item))
     }
 
     private fun setup() {

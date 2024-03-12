@@ -16,8 +16,7 @@ class FragmentNoteCreate : Fragment() {
     private var _binding: FragmentNoteCreateBinding? = null
     private val binding
         get() = _binding!!
-    private var isUpdating = false
-    private var noteId: Int = -1
+    private var note: Notes? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,41 +30,39 @@ class FragmentNoteCreate : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUp()
-        setListeners()
+        loadDataFromNotesFragment()
+        initListeners()
     }
 
-    private fun setUp() {
-        noteId = requireArguments().getInt("noteId", -1)
-        if (noteId != -1) {
-            isUpdating = true
-            val currentNote = NotesManager.dao.getNoteById(noteId).value
-            if (currentNote != null) {
-                binding.edtNoteTitle.setText(currentNote.title)
-                binding.edtNoteDescription.setText(currentNote.description)
-            }
-        } else {
-            Toast.makeText(requireContext(), "Invalid noteId", Toast.LENGTH_SHORT).show()
+    private fun initListeners() {
+        binding.btNoteCreate.setOnClickListener {
+            if (note == null) saveNote()
+            if (note != null && binding.edtNoteTitle.text.isNotEmpty()) updateNote()
+            findNavController().popBackStack()
         }
     }
 
-    private fun setListeners() {
-        binding.btNoteCreate.setOnClickListener {
-            if (isUpdating) {
-                val updateNote = Notes(
-                    id = noteId,
-                    title = binding.edtNoteTitle.text.toString(),
-                    description = binding.edtNoteDescription.text.toString()
-                )
-                NotesManager.dao.insertOrUpdateNote(updateNote)
-            } else {
-                val newNote = Notes(
-                    title = binding.edtNoteTitle.text.toString(),
-                    description = binding.edtNoteDescription.text.toString()
-                )
-                NotesManager.dao.insertOrUpdateNote(newNote)
-            }
-            findNavController().popBackStack()
+    private fun updateNote() {
+        val data = note?.copy(
+            title = binding.edtNoteTitle.text.toString(),
+            description = binding.edtNoteDescription.text.toString()
+        )
+        if (data != null) NotesManager.dao.updateNote(data)
+    }
+
+    private fun saveNote() {
+        val data = Notes(
+            title = binding.edtNoteTitle.text.toString(),
+            description = binding.edtNoteDescription.text.toString()
+        )
+        NotesManager.dao.insertNote(data)
+    }
+
+    private fun loadDataFromNotesFragment() {
+        note = arguments?.getSerializable("noteKey") as? Notes
+        if (note != null) {
+            binding.edtNoteTitle.setText(note?.title)
+            binding.edtNoteDescription.setText(note?.description)
         }
     }
 }

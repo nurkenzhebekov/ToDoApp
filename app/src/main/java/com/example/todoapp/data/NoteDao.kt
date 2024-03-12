@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.todoapp.models.Notes
 
 @Dao
@@ -25,4 +26,7 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdateNote(note: Notes)
+
+    @Update
+    fun updateNote(note: Notes)
 }

@@ -27,9 +27,6 @@
         <action
             android:id="@+id/action_navigation_notes_to_fragmentNoteCreate"
             app:destination="@id/fragmentNoteCreate" />
-        <action
-            android:id="@+id/action_navigation_notes_to_notesDetailsFragment"
-            app:destination="@id/notesDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentNoteCreate"
@@ -73,14 +70,5 @@
             app:destination="@id/navigation_notes"
             app:popUpTo="@id/onBoardingFragment"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/notesDetailsFragment"
-        android:name="com.example.todoapp.ui.notes.details.NotesDetailsFragment"
-        android:label="Notes Details"
-        tools:layout="@layout/fragment_notes_details">
-        <action
-            android:id="@+id/action_notesDetailsFragment_to_fragmentNoteCreate"
-            app:destination="@id/fragmentNoteCreate" />
     </fragment>
 </navigation>
