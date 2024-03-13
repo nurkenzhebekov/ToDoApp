@@ -28,14 +28,13 @@
         android:id="@+id/bt_sign_in_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Sign In With Google"/>
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:id="@+id/bt_sign_up_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Sign Up With Email"/>
+        android:text="Sign In With Email"/>
 
 </LinearLayout>

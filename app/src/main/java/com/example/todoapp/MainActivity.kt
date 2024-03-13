@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener {_, destination, _ ->
             if (destination.id == R.id.splashScreenFragment ||
                 destination.id == R.id.onBoardingFragment ||
-                destination.id == R.id.authFragment) {
+                destination.id == R.id.authFragment ||
+                destination.id == R.id.signInEmailFragment) {
                 binding.botNavView.visibility = View.GONE
             } else {
                 binding.botNavView.visibility = View.VISIBLE

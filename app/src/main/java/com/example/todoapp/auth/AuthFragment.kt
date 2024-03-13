@@ -65,10 +65,15 @@ class AuthFragment : Fragment() {
         binding.btSignInGoogle.setOnClickListener {
             signIn()
         }
+
+        binding.btSignUpEmail.setOnClickListener {
+            findNavController().navigate(R.id.action_authFragment_to_signInEmailFragment)
+        }
     }
 
     private fun signIn() {
         googleSignInLauncher.launch(mGoogleSignInClient.signInIntent)
+        findNavController().navigate(R.id.action_authFragment_to_navigation_notes)
     }
 
     private fun firebaseAuthWithGoogle(token: String) {
