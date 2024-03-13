@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         //hide the bottom navigation on splash screen
         navController.addOnDestinationChangedListener {_, destination, _ ->
             if (destination.id == R.id.splashScreenFragment ||
-                destination.id == R.id.onBoardingFragment) {
+                destination.id == R.id.onBoardingFragment ||
+                destination.id == R.id.authFragment) {
                 binding.botNavView.visibility = View.GONE
             } else {
                 binding.botNavView.visibility = View.VISIBLE

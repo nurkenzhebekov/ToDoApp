@@ -35,7 +35,7 @@ class OnBoardingScreenFragment3 : Fragment() {
         val viewPager = activity?.findViewById<ViewPager2>(R.id.vp_onboarding)
 
         btNext.setOnClickListener {
-            findNavController().navigate(R.id.action_onBoardingFragment_to_navigation_home)
+            findNavController().navigate(R.id.action_onBoardingFragment_to_authFragment)
             onBoardingIsFinished()
         }
     }

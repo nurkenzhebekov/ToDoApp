@@ -23,4 +23,6 @@
     <string name="bt_save_contact">Save</string>
     <string name="btn_add_new_note">Add new note</string>
     <string name="bt_edit">Edit</string>
+
+    <string name="web_client_id">1076808134925-frm32dir5a6db083lbic1hbgivffag17.apps.googleusercontent.com</string>
 </resources>
