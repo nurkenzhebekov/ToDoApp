@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
@@ -73,14 +74,13 @@ class AuthFragment : Fragment() {
 
     private fun signIn() {
         googleSignInLauncher.launch(mGoogleSignInClient.signInIntent)
-        findNavController().navigate(R.id.action_authFragment_to_navigation_notes)
     }
 
     private fun firebaseAuthWithGoogle(token: String) {
         val credential = GoogleAuthProvider.getCredential(token, null)
         auth.signInWithCredential(credential)
             .addOnFailureListener {
-                Log.e("auth", "signIn failde", it.cause)
+                Log.e("auth", "signIn failed", it.cause)
             }
             .addOnSuccessListener {
                 updateUI()
@@ -90,6 +90,8 @@ class AuthFragment : Fragment() {
     private fun updateUI() {
         binding.tvUserName.text = "Hello, ${auth.currentUser?.displayName}"
         binding.tvUserName.visibility = View.VISIBLE
+        Toast.makeText(requireContext(), "Hello, ${auth.currentUser?.displayName}",
+            Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.action_authFragment_to_navigation_notes)
     }
 

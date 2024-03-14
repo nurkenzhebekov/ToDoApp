@@ -21,16 +21,16 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        binding = FragmentSplashBinding.inflate(layoutInflater)
         Handler(Looper.getMainLooper()).postDelayed({
 
             if (onBoardingIsFinished()) {
-                findNavController().navigate(R.id.action_splashScreenFragment_to_authFragment)
+                findNavController().navigate(R.id.authFragment)
             } else {
-                findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+                findNavController().navigate(R.id.onBoardingFragment)
             }
         }, 4000)
 
-        binding = FragmentSplashBinding.inflate(layoutInflater)
         return binding.root
 
     }

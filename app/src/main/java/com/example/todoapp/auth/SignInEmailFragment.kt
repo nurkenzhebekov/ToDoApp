@@ -35,7 +35,6 @@ class SignInEmailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setListeners()
-        findNavController().navigate(R.id.action_signInEmailFragment_to_navigation_notes)
     }
 
     private fun setListeners() {
@@ -141,6 +140,7 @@ class SignInEmailFragment : Fragment() {
                     "Welcome, ${it.user?.displayName ?: it.user?.email}!!!",
                     Toast.LENGTH_SHORT
                 ).show()
+                findNavController().navigate(R.id.action_signInEmailFragment_to_navigation_notes)
             }
     }
 
@@ -160,6 +160,7 @@ class SignInEmailFragment : Fragment() {
                     "Welcome back, ${it.user?.displayName ?: it.user?.email}!!!",
                     Toast.LENGTH_SHORT
                 ).show()
+                findNavController().navigate(R.id.action_signInEmailFragment_to_navigation_notes)
             }
     }
 
